@@ -74,3 +74,36 @@ def Dataset(bs, crop_size, sample_size="full"):
     test_data = torch.utils.data.DataLoader(test_data, shuffle=True, batch_size=bs)
 
     return train_data, valid_data, test_data
+
+"""
+This code sets up a PyTorch pipeline for loading and preprocessing image data for a bird classification task using training, validation, and test datasets. Here's a brief explanation of what's happening:
+
+Key Steps:
+Imports:
+
+Required libraries (torch, torchvision, cv2, etc.) are imported for building, preprocessing, and loading datasets.
+Directories:
+
+File paths to the training, validation, and testing datasets are specified as train_dir, val_dir, and test_dir.
+Dataset Function (Dataset):
+
+The Dataset function prepares and loads image datasets with specified transformations and configurations.
+Parameters:
+bs (batch size): Number of images per batch.
+crop_size: Target size to resize and crop images.
+sample_size: Specifies whether to use the full dataset or a subset.
+Transformations:
+
+A pipeline of transformations is defined for preprocessing images:
+Convert to Tensor (ToTensor).
+Resize and center-crop images (Resize, CenterCrop).
+Apply data augmentation (random horizontal flips and rotations).
+Normalize images to have a standard mean and standard deviation.
+Dataset Loading:
+
+If sample_size == "full", all images from the ImageFolder datasets are used. Otherwise, a subset of size sample_size is selected.
+The datasets are loaded using torch.utils.data.DataLoader, enabling batch processing and shuffling.
+Return Values:
+
+The function returns three DataLoader objects: train_data, valid_data, and test_data.
+This code provides a clean way to load and preprocess datasets while supporting both full datasets and smaller subsets for faster experimentation."""
