@@ -140,3 +140,85 @@ if __name__ == "__main__":
         monitoring=True,
     )
 
+"""
+This script implements the training engine for a Vision Transformer (ViT) model and integrates it with Neptune for monitoring training and validation metrics. Below is an explanation of the various components:
+
+Key Components of the Script
+1. Imports
+Core Libraries: Includes torch, torchvision, numpy, cv2 for computer vision tasks, and matplotlib.pyplot for visualization.
+Neptune: Used for experiment tracking and monitoring.
+VisionTransformer: A custom Vision Transformer model is imported from transformer.py.
+Dataset: A custom data preprocessing and loading utility from preprocessing.py.
+2. Neptune Monitoring
+The neptune_monitoring function:
+
+Extracts parameters from a config object and organizes them into a dictionary for logging to Neptune.
+3. Training Engine (train_Engine)
+This function handles the training and validation of the Vision Transformer model.
+
+Parameters:
+n_epochs: Number of training epochs.
+train_data and val_data: Data loaders for training and validation datasets.
+model: The Vision Transformer to train.
+optimizer: Optimizer for updating model weights.
+loss_fn: Loss function (in this case, negative log likelihood).
+device: Specifies whether training should run on GPU or CPU.
+monitoring: Enables or disables logging to Neptune.
+Training Loop:
+Uses tqdm for a progress bar to monitor iterations.
+For each batch in the train_data:
+Forward Pass: Computes predictions (logits) and attention weights.
+Loss Calculation: Applies the negative log-likelihood loss (nll_loss).
+Backward Pass and Optimization: Updates model parameters.
+Accuracy Calculation: Compares predictions with ground truth.
+Logs loss and accuracy to Neptune if monitoring is enabled.
+Saves the best model (with highest accuracy) to a file.
+Validation Loop:
+Similar to training, but without gradient calculations (torch.no_grad()).
+Computes validation accuracy and logs metrics to Neptune.
+4. Main Script
+The main block initializes the Vision Transformer, loads the dataset, and begins training.
+
+Steps:
+Configuration:
+
+Config defines model hyperparameters, dataset details, and training settings.
+Example attributes: IMG_SIZE, BATCH_SIZE, N_EPOCHS, etc.
+Initialize Neptune:
+
+Connects to a Neptune project using the provided API token.
+Logs configuration parameters to the Neptune run.
+Model Definition:
+
+Instantiates the VisionTransformer with configuration parameters.
+Data Preparation:
+
+Uses the Dataset class to load training, validation, and test datasets.
+Optimizer:
+
+Uses Adam optimizer with a learning rate of 0.003.
+Training:
+
+Calls train_Engine with the defined parameters to start training.
+Additional Notes
+Attention Weights:
+
+The script also extracts attention weights during the forward pass of the Vision Transformer, though these are not explicitly visualized.
+Model Saving:
+
+Saves the model with the best validation accuracy to /metadata/model.pth.
+Neptune API Token:
+
+The provided API token is used for connecting to Neptune. Ensure this is kept secure to avoid misuse.
+Custom Components:
+
+The Dataset and Config classes need to be implemented in preprocessing.py and config.py, respectively. They are essential for loading data and defining hyperparameters.
+Device Usage:
+
+The device parameter from the configuration determines whether the model runs on GPU or CPU. Ensure CUDA is available if using a GPU.
+Example Output
+When running the script:
+
+Progress bars from tqdm will display the current epoch, iteration, loss, and accuracy.
+Metrics (e.g., training/validation loss and accuracy) will be logged to Neptune for visualization and tracking.
+This script provides a structured approach for training a Vision Transformer while enabling robust experiment monitoring with Neptune."""
