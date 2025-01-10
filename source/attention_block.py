@@ -74,3 +74,10 @@ if __name__ == "__main__":
     x = embeddings(x)
     x = b(x)
     print(x)
+
+
+"""
+Key Takeaways
+The Block is the basic unit of Vision Transformers (ViT).
+It combines self-attention, feed-forward networks, and residual connections to learn relationships between tokens and refine their features.
+The output features ([1, 197, 768]) are richer representations of the input."""
