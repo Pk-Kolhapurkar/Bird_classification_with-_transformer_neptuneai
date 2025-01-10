@@ -147,3 +147,14 @@ if __name__ == "__main__":
 
     x = model(x)
     print(x)
+
+
+"""
+Vision Transformer Flow
+Input Image → Split into patches → Patch Embeddings.
+Add positional encodings to embeddings.
+Pass embeddings through multiple transformer blocks (self-attention + feed-forward layers).
+Extract the "class token" (first token) for classification.
+Map it to class logits using the Linear classification head.
+
+"""
